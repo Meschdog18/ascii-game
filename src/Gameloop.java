@@ -1,14 +1,15 @@
 
 public abstract class Gameloop {
     public Gameloop(){
-        Renderer renderer = new Renderer();
         Scene scene = new Scene();
+        TerminalView t = new TerminalView();
+        SceneView s = new SceneView(10, 5);
+        SceneController sc = new SceneController(t,s, scene);
         while(true){
             //handle phyics and rendering here per frame
-            scene.update();
-            Layer layer = new Layer(scene);
-            layer.createLayer();
-            renderer.renderLayer(layer);
+            sc.update();
+            sc.render();
+            sc.processInput();
 
             loop();
             try {
