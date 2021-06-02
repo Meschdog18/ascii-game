@@ -3,24 +3,24 @@
 public class EntityView extends Layer {
     private int x;
     private int y;
-    private String character;
+    private String symbol;
     public EntityView(int rowRange, int colRange){
         super(rowRange, colRange);
         layerPriority = 1;
     }
-    public void update(int x, int y, String character){
+    public void update(int x, int y, String symbol){
         layerBuffer[this.x][this.y] = null;//clear out old pos
 
         this.x = x;
         this.y = y;
-        this.character = character;
+        this.symbol = symbol;
 
     }
     public void createLayer(){
         layerBuffer[x][y] = character;
 
     }
-    public String getCharacter(){
-        return character;
+    public String getSymbol(){
+        return symbol;
     }
 }

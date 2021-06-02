@@ -12,7 +12,7 @@ public class EntityController {
     public EntityController(Entity model, EntityView view){
         this.model = model;
         this.view = view;
-        view.update(model.getX(), model.getY(), model.character()); //intial view set
+        view.update(model.getX(), model.getY(), model.symbol()); //intial view set
     }
     
     public void update(){

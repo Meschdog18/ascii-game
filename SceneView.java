@@ -26,9 +26,8 @@ public class SceneView extends Layer{
 
                 for(EntityController eC: entityControllers){
                     EntityView eV = eC.getView();
-                    //sSystem.out.println(eV.getPointOnLayer(row, col));
                     if(eV.getPointOnLayer(row, col) != null){
-                        layerBuffer[row][col] = eV.getCharacter();
+                        layerBuffer[row][col] = eV.getSymbol();
                     }
                 }
                 if(layerBuffer[row][col] == null){
