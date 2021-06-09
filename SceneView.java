@@ -1,7 +1,9 @@
 import java.util.Arrays;
+import java.util.ArrayList;
+
 public class SceneView extends Layer{
 
-    private EntityController[] entityControllers;
+    private ArrayList<EntityController> entityControllers;
     private World world;
 
     public SceneView(int rowRange, int colRange){
@@ -9,7 +11,7 @@ public class SceneView extends Layer{
         layerPriority = 2;
         
     }
-    public void update(EntityController[] entityControllers, World world){
+    public void update(ArrayList<EntityController> entityControllers, World world){
         this.entityControllers = entityControllers;
         this.world = world;
     }
@@ -26,8 +28,9 @@ public class SceneView extends Layer{
 
                 for(EntityController eC: entityControllers){
                     EntityView eV = eC.getView();
-                    if(eV.getPointOnLayer(row, col) != null){
-                        layerBuffer[row][col] = eV.getSymbol();
+
+                    if(eV.getPointOnLayer(row, col) != null && eV.isRenderable()){
+                        layerBuffer[row][col] = eV.getCharacter();
                     }
                 }
                 if(layerBuffer[row][col] == null){

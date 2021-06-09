@@ -3,24 +3,29 @@
 public class EntityView extends Layer {
     private int x;
     private int y;
-    private String symbol;
+    private String character;
+    private boolean renderable;
+
     public EntityView(int rowRange, int colRange){
         super(rowRange, colRange);
         layerPriority = 1;
+        renderable = true;
     }
-    public void update(int x, int y, String symbol){
+    public void update(int x, int y, String character){
         layerBuffer[this.x][this.y] = null;//clear out old pos
 
         this.x = x;
         this.y = y;
-        this.symbol = symbol;
+        this.character = character;
 
     }
     public void createLayer(){
         layerBuffer[x][y] = character;
 
     }
-    public String getSymbol(){
-        return symbol;
+    public String getCharacter(){
+        return character;
     }
+    public boolean isRenderable(){return renderable;}
+    public void setRenderable(boolean renderable){this.renderable = renderable;}
 }

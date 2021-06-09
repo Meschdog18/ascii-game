@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class SceneController{
     private SceneView sceneView;
@@ -11,7 +12,7 @@ public class SceneController{
     }
     public void update(){
         //move getTo to entity controller
-        EntityController[] ecs = scene.getEntities();
+        ArrayList<EntityController> ecs = scene.getEntities();
         sceneView.update(ecs, scene.getWorld());
 
         for(EntityController entity : ecs){
@@ -20,7 +21,7 @@ public class SceneController{
             for(EntityController colPartner : ecs){
                 if(entity.getXBuffer() == colPartner.getModel().getX() && entity.getYBuffer() == colPartner.getModel().getY()){
                     //trigger onCollison
-                    break;
+                    entity.onCollison(colPartner);
                 }else{
                     entity.setLocation(entity.getXBuffer(), entity.getYBuffer());
                 }

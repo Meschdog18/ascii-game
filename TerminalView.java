@@ -20,7 +20,7 @@ public class TerminalView {
         return data;
     }
     public void renderScene(SceneView view){
-        clearScreen();
+        //clearScreen();
         
         String[][] layerBuffer = view.getLayerBuffer();
 

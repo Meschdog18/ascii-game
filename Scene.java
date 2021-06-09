@@ -1,17 +1,21 @@
 import java.util.Arrays;
 import java.util.Map;
+import java.util.ArrayList;
 
 
 public class Scene {
     private World world;
-    private EntityController[] Entities;
-
+    private ArrayList<EntityController> Entities;
     public Scene(){
-        Entities = new EntityController[3];
-        for(int i =0; i<Entities.length;i++){
-            Entity entity = new Entity(i, 0);
-            EntityView view = new EntityView(10, 5);
-            Entities[i] = new EntityController(entity, view);
+        Entities = new ArrayList<EntityController>();
+        for(int i =0; i<3;i++){
+            //Entity entity = new Entity(i, 0);
+            //EntityView view = new EntityView(10, 5);
+            //new EntityController(entity, view)
+            Character character = new Character(i,0, 100);
+            CharacterView view = new CharacterView(10, 5);
+
+            Entities.add(new CharacterController(character, view));
         }
         world = new World(generateMap(10, 5));
     }
@@ -26,6 +30,6 @@ public class Scene {
         return map;
     }
     public World getWorld(){return world;}
-    public EntityController[] getEntities(){return Entities;}
+    public ArrayList<EntityController> getEntities(){return Entities;}
     
 }
