@@ -1,9 +1,10 @@
 
 public abstract class Gameloop {
     public Gameloop(){
-        Scene scene = new Scene();
+        ViewBox vb = new ViewBox(20, 20);
+        Scene scene = new Scene(vb);
         TerminalView t = new TerminalView();
-        SceneView s = new SceneView(10, 5);
+        SceneView s = new SceneView(vb);
         SceneController sc = new SceneController(t,s, scene);
         while(true){
             //handle phyics and rendering here per frame

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+//class that handles most of the high level logic of the game
 public class SceneController{
     private SceneView sceneView;
     private TerminalView terminalView;
@@ -11,30 +12,60 @@ public class SceneController{
         this.scene = scene;
     }
     public void update(){
-        //move getTo to entity controller
+      //gets called every frame
+
         ArrayList<EntityController> ecs = scene.getEntities();
-        sceneView.update(ecs, scene.getWorld());
 
         for(EntityController entity : ecs){
-            entity.update();
+          
+          //if entity isDeactivated don't bother rendering, updating, etc, just ignore
 
+          if(entity.isDeactivated()){
+            continue;
+          }
+//pass all entities in game to each entity, so //they can preform certain functions (ie, find neighbors)
+          entity.setEcsBuffer(ecs);
+          //calls entity update 
+            entity.update(); 
+          
             for(EntityController colPartner : ecs){
-                if(entity.getXBuffer() == colPartner.getModel().getX() && entity.getYBuffer() == colPartner.getModel().getY()){
+                //checks for collions
+                
+                Entity colPModel = colPartner.getModel();
+                Entity entityModel = entity.getModel();
+
+                if((entity.getXBuffer() == colPModel.getX() && entity.getYBuffer() == colPModel.getY()) && entity != colPartner){
                     //trigger onCollison
                     entity.onCollison(colPartner);
                 }else{
-                    entity.setLocation(entity.getXBuffer(), entity.getYBuffer());
+                  // if no collison, move entity to pos
+                  
+                    if(entity.getXBuffer() != entityModel.getX() || entity.getYBuffer() != entityModel.getY()){
+                      entity.setLocation(entity.getXBuffer(), entity.getYBuffer());
+                    }
+                    
                 }
             }
+          
+          ecs = entity.getEcsBuffer();
+         
         }
+        //updates entities in scene
+        scene.setEntities(ecs);
+        sceneView.update(ecs, scene.getWorld());//updates sceneview, so it can prepare the render
+
 
     }
     public void render(){
+        //combines all entites, map, status message into one 2d array which can be rendered in the terminalView
         sceneView.createLayer();
+        sceneView.combineStatusMessages();
         terminalView.renderScene(sceneView);
     }
     public void processInput(){
         String in = terminalView.getInput();
-        System.out.println(in);
+        //pump this into the player update function
+        PlayerController player = scene.getPlayer();
+        player.onKeyPress(in);//maybe add array for all keypress listeners that impliment keyboardlistener interface
     }
 }

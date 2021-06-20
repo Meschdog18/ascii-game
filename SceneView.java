@@ -5,9 +5,8 @@ public class SceneView extends Layer{
 
     private ArrayList<EntityController> entityControllers;
     private World world;
-
-    public SceneView(int rowRange, int colRange){
-        super(rowRange, colRange);
+    public SceneView(ViewBox vb){
+        super(vb.getDimX(), vb.getDimY());
         layerPriority = 2;
         
     }
@@ -23,11 +22,13 @@ public class SceneView extends Layer{
     public void createLayer(){
         //merges entities and world
         clearLayer();
+        statusMessages.clear();
+
         for(int row = 0; row < layerBuffer.length; row++){
             for(int col = 0; col < layerBuffer[row].length; col++){
 
                 for(EntityController eC: entityControllers){
-                    EntityView eV = eC.getView();
+                    EntityView eV = eC.getView(); //optmizie, this gets called many times, also x,y arent set for init pos, also make x,y priv
 
                     if(eV.getPointOnLayer(row, col) != null && eV.isRenderable()){
                         layerBuffer[row][col] = eV.getCharacter();
@@ -39,4 +40,13 @@ public class SceneView extends Layer{
             }
         }
     }
+  public void combineStatusMessages(){
+    for(EntityController eC: entityControllers){
+      EntityView eV = eC.getView();
+      ArrayList<String> messages = eV.getStatusMessages();
+      if(messages.size() > 0){
+        statusMessages.addAll(messages);
+      }
+    }
+  }
 }

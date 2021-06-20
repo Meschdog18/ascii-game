@@ -1,7 +1,7 @@
 import utility.Color;
 
 public enum Tile {
-    GROUND('.', Color.ANSI_GREEN, true),
+    GROUND('.', Color.ANSI_GREEN, false),
     WALL('#', Color.ANSI_BLACK, true);
 
     private char character;

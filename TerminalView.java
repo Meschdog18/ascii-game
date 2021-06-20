@@ -1,6 +1,8 @@
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class TerminalView {
     public TerminalView(){
@@ -19,8 +21,10 @@ public class TerminalView {
         
         return data;
     }
+    
+    //renders the SceneView
     public void renderScene(SceneView view){
-        //clearScreen();
+        clearScreen();
         
         String[][] layerBuffer = view.getLayerBuffer();
 
@@ -30,6 +34,14 @@ public class TerminalView {
             }
             System.out.println();
         }
+        System.out.println("=".repeat(layerBuffer.length));
+        ArrayList<String> statusMessages = view.getStatusMessages();
+
+        for(String status : statusMessages){
+          System.out.println(status);
+        }
+        
+
     }
     private void clearScreen(){
         System.out.print("\033[H\033[2J");  

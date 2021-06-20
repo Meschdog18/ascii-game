@@ -1,3 +1,4 @@
+//world model class
 public class World {
     private Tile map[][];
     private int width;
