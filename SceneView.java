@@ -28,7 +28,7 @@ public class SceneView extends Layer{
             for(int col = 0; col < layerBuffer[row].length; col++){
 
                 for(EntityController eC: entityControllers){
-                    EntityView eV = eC.getView(); //optmizie, this gets called many times, also x,y arent set for init pos, also make x,y priv
+                    EntityView eV = eC.getView();
 
                     if(eV.getPointOnLayer(row, col) != null && eV.isRenderable()){
                         layerBuffer[row][col] = eV.getCharacter();

@@ -31,9 +31,11 @@ class CharacterController extends EntityController{
   }
 
   public CharacterController attackOther(CharacterController other){
+    Random rand = new Random();
+
     //attacks other character
     Character otherModel = (Character) other.getModel();
-    otherModel.setHealth(otherModel.getHealth() - 40);
+    otherModel.setHealth(otherModel.getHealth() - rand.nextInt(30)); //chooses random attack damage in range of 30 pts
     if(otherModel.getHealth() < 0){
       inBattle = false; //inBattle just means the character can't move until battle finishs (one character dies)
     }
@@ -78,7 +80,10 @@ class CharacterController extends EntityController{
       int eX = e.getX();
       int eY = e.getY();
       if((cX == eX && (cY + 1 == eY || cY - 1 == eY)) || (cY == eY && (cX + 1 == eX || cX - 1 == eX))){
-        return ec; //only returns first enemy in contact, regardless if there muliple in range (keeps it simple)
+        if(!ec.deactivated){
+          return ec; //only returns first enemy in contact, regardless if there muliple in range (keeps it simple)
+        }
+        
       }
       
     }

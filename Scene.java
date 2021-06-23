@@ -13,7 +13,7 @@ public class Scene {
         Entities = new ArrayList<EntityController>();
         //generates 5 character enemies
         for(int i =0; i<5;i++){
-            Character character = new Character(i,0, "d",100);
+            Character character = new Character(i,0, "d",50);
             CharacterView view = new CharacterView(vb);
 
             Entities.add(new CharacterController(character, view));

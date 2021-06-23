@@ -12,6 +12,12 @@ public class PlayerController extends CharacterController implements KeyboardLis
   public void update(){
     Character model = (Character) getModel();
     ((CharacterView) view).updateStatusMessage("Player Health: "+String.valueOf(model.getHealth()));
+
+    //just ends the game if the player dies
+    if(model.getHealth() < 0){
+      System.out.println("You died!");
+      System.exit(0);
+    }
   }
 
   public void onKeyPress(String key){
